@@ -1,0 +1,22 @@
+<configuration>
+<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+        <level>DEBUG</level>
+    </filter>
+
+    <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+        <evaluator>
+            <expression>return logger.startsWith("io.netty") &amp;&amp; level &lt; WARN;</expression>
+        </evaluator>
+        <OnMismatch>NEUTRAL</OnMismatch>
+        <OnMatch>DENY</OnMatch>
+    </filter>
+    <layout>
+        <pattern>%date{ISO8601}|%level|%logger|%thread %msg %mdc %ex\n</pattern>
+    </layout>
+</appender>
+
+<root level="debug">
+    <appender-ref ref="STDOUT" />
+</root>
+</configuration>

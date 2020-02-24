@@ -1,0 +1,53 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  Deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Gradle tests
+        run: ./gradlew clean check
+      - name: Save test reports
+        uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: test_reports
+          path: build/reports/tests/test/
+
+      - name: Run IntelliJ Inspections
+        uses: gps/intellij-inspections-action@0.0.1
+        with:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Save inspection results
+        uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: idea_inspections
+          path: target/idea_inspections
+
+      - name: Create fat jar
+        run: ./gradlew shadowJar
+      - name: Save fat jar
+        uses: actions/upload-artifact@v1
+        with:
+          name: automatedturk.jar
+          path: build/libs/automatedturk.jar
+      - name: Deploy to prod host
+        run: |
+          chmod 400 deploy_keys/do
+          scp -o StrictHostKeyChecking=no -i deploy_keys/do build/libs/automatedturk.jar at@167.172.136.61:~/automatedturk.jar
+          ssh -o StrictHostKeyChecking=no -i deploy_keys/do at@167.172.136.61 "sudo systemctl restart automatedturk"
