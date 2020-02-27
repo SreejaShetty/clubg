@@ -47,7 +47,7 @@ fun Application.module(@Suppress("UNUSED_PARAMETER") testing: Boolean = false) {
             setPrettyPrinting()
             serializeSpecialFloatingPointValues()
             enableComplexMapKeySerialization()
-            setDateFormat(DateFormat.LONG)
+
         }
     }
 
