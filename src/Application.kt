@@ -48,7 +48,6 @@ fun Application.module(@Suppress("UNUSED_PARAMETER") testing: Boolean = false) {
             serializeSpecialFloatingPointValues()
             enableComplexMapKeySerialization()
             setDateFormat(DateFormat.LONG)
-            setPrettyPrinting()
         }
     }
 
@@ -77,14 +76,10 @@ fun Application.module(@Suppress("UNUSED_PARAMETER") testing: Boolean = false) {
             call.respondText(json)
             val jsonObject = Gson().fromJson(json, JsonObject::class.java)
             print(jsonObject)
-            println()
-            val obj1  = jsonObject.get("head_commit")
-            print(obj1)
-            println()
-            val obj2 = Gson().fromJson(obj1,JsonObject::class.java)
-            val obj3 = obj2.get("message")
-            print(obj3)
-            println()
+            val Commit = jsonObject.get("head_commit")
+            val obj2 = Gson().fromJson( Commit,JsonObject::class.java)
+            val commitmessage = obj2.get("message")
+            print(commitmessage)
         }
     }
 }
