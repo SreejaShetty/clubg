@@ -75,11 +75,12 @@ fun Application.module(@Suppress("UNUSED_PARAMETER") testing: Boolean = false) {
             val json = call.receive<String>()
             call.respondText(json)
             val jsonObject = Gson().fromJson(json, JsonObject::class.java)
-            print(jsonObject)
-            val Commit = jsonObject.get("head_commit")
-            val obj2 = Gson().fromJson( Commit,JsonObject::class.java)
-            val commitmessage = obj2.get("message")
-            print(commitmessage)
+            val Commit = jsonObject.get("check_suite")
+            val Commitparse = Gson().fromJson( Commit,JsonObject::class.java)
+            val commitmessage = Commitparse.get("head_commit")
+            val Commitparse1 = Gson().fromJson( commitmessage,JsonObject::class.java)
+            val message = Commitparse1.get("message")
+            print(message)
         }
     }
 }
