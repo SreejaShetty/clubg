@@ -11,6 +11,6 @@ import io.ktor.routing.post
 
 fun Route.gitHub() {
     post("/webhook") {
-        call.respondText("ok")
+        call.respondText("ok",contentType = ContentType.Text.Plain)
     }
 }
