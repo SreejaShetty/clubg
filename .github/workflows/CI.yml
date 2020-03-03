@@ -35,8 +35,4 @@ jobs:
           path: build/reports/tests/test/
       - name: Create fat jar
         run: ./gradlew shadowJar
-      - name: Save fat jar
-        uses: actions/upload-artifact@v1
-        with:
-          name: automatedturk.jar
-          path: build/libs/automatedturk.jar
+

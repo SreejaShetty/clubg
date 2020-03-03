@@ -6,12 +6,14 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.github.jengelman.gradle.plugins:shadow:5.2.0'
+        classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.27.1'
     }
 }
 
 apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'kotlin'
 apply plugin: 'application'
+apply plugin: 'com.diffplug.gradle.spotless'
 
 group 'com.suryadigital'
 version '0.0.1'
@@ -41,10 +43,7 @@ dependencies {
     implementation "io.ktor:ktor-client-apache:$ktor_version"
     implementation "io.ktor:ktor-client-logging-jvm:$ktor_version"
     implementation 'org.codehaus.janino:janino:3.1.0'
-    implementation "io.ktor:ktor:$ktor_version"
     implementation "io.ktor:ktor-gson:$ktor_version"
-    implementation "com.squareup.moshi:moshi-adapters:1.5.0"
-    implementation "com.squareup.moshi:moshi-kotlin:1.5.0"
     testImplementation "io.ktor:ktor-server-tests:$ktor_version"
 }
 
@@ -56,4 +55,10 @@ shadowJar {
     baseName = 'automatedturk'
     classifier = ''
     archiveVersion = ''
+}
+
+spotless {
+    kotlin {
+        ktlint()
+    }
 }
