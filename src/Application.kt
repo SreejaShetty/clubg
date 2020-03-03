@@ -71,17 +71,6 @@ fun Application.module(@Suppress("UNUSED_PARAMETER") testing: Boolean = false) {
         route("/github") {
             gitHub()
         }
-        post("/"){
-            val json = call.receive<String>()
-            call.respondText(json)
-            val jsonObject = Gson().fromJson(json, JsonObject::class.java)
-            val commit = jsonObject.get("check_suite")
-            val commitparse = Gson().fromJson( commit,JsonObject::class.java)
-            val commitmessage = commitparse.get("head_commit")
-            val commitparse1 = Gson().fromJson( commitmessage,JsonObject::class.java)
-            val message = commitparse1.get("message")
-            print(message)
-        }
     }
 }
 
