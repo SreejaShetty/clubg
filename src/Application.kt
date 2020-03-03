@@ -79,11 +79,12 @@ fun Application.module(@Suppress("UNUSED_PARAMETER") testing: Boolean = false) {
             val headCommit = commitParse.get("head_commit")
             val parseHcommit = Gson().fromJson(headCommit, JsonObject::class.java)
             val commitMessage = parseHcommit.get("message")
-            if (commitMessage!=null){
-                val ticketPattern= Regex(""""[c][h]\d{2,4}""")
-                val ticket:String? = ticketPattern.find(commitMessage.toString())?.value
-                print(ticket)
-            }
+            print(commitMessage)
+//            if (commitMessage!=null){
+//                val ticketPattern= Regex(""""[c][h]\d{2,4}""")
+//                val ticket:String? = ticketPattern.find(commitMessage.toString())?.value
+//                print(ticket)
+//            }
         }
     }
 }
