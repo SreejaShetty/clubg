@@ -42,14 +42,14 @@ fun Application.module(@Suppress("UNUSED_PARAMETER") testing: Boolean = false) {
         level = Level.INFO
     }
 
-    install(ContentNegotiation){
-        gson{
-            setPrettyPrinting()
-            serializeSpecialFloatingPointValues()
-            enableComplexMapKeySerialization()
-
-        }
-    }
+//    install(ContentNegotiation){
+//        gson{
+//            //setPrettyPrinting()
+//           // serializeSpecialFloatingPointValues()
+//           // enableComplexMapKeySerialization()
+//
+//        }
+//    }
 
     install(DefaultHeaders) {
         header("X-Engine", "Ktor")
@@ -75,11 +75,11 @@ fun Application.module(@Suppress("UNUSED_PARAMETER") testing: Boolean = false) {
             val json = call.receive<String>()
             call.respondText(json)
             val jsonObject = Gson().fromJson(json, JsonObject::class.java)
-            val Commit = jsonObject.get("check_suite")
-            val Commitparse = Gson().fromJson( Commit,JsonObject::class.java)
-            val commitmessage = Commitparse.get("head_commit")
-            val Commitparse1 = Gson().fromJson( commitmessage,JsonObject::class.java)
-            val message = Commitparse1.get("message")
+            val commit = jsonObject.get("check_suite")
+            val commitparse = Gson().fromJson( commit,JsonObject::class.java)
+            val commitmessage = commitparse.get("head_commit")
+            val commitparse1 = Gson().fromJson( commitmessage,JsonObject::class.java)
+            val message = commitparse1.get("message")
             print(message)
         }
     }
