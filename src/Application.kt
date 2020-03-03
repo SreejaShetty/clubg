@@ -42,14 +42,14 @@ fun Application.module(@Suppress("UNUSED_PARAMETER") testing: Boolean = false) {
         level = Level.INFO
     }
 
-//    install(ContentNegotiation){
-//        gson{
-//            //setPrettyPrinting()
-//           // serializeSpecialFloatingPointValues()
-//           // enableComplexMapKeySerialization()
-//
-//        }
-//    }
+    install(ContentNegotiation){
+        gson {
+            setPrettyPrinting()
+            serializeSpecialFloatingPointValues()
+            enableComplexMapKeySerialization()
+            setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        }
+    }
 
     install(DefaultHeaders) {
         header("X-Engine", "Ktor")
